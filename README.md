@@ -1,2 +1,2 @@
 # ChessGame
-Logic Behind 
+Game Logic
