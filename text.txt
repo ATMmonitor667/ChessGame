@@ -1,0 +1,10 @@
+-> UseState to handle the track of which player goes when
+-> function to flip the Board, we can also you useStatesame as before
+-> Peice Movements can be handled with the dir applied on the queen, rook, etc
+-> Still have not decided if the peices will be Object oriented or functional
+-> Thinking of combining the two approaches, it will hold Objects information like the color, peice positon, and moveSet
+-> the moveset will contain all the possible moves a peice can make
+-> useState to manage the board. With every Drag and Drop it will trigger the function which will change the contents
+of the board and which will trigger a state change. Again we should use useState to manage the board changes
+the use State will take the initail board state and the new board state and update the board state
+-> The board will be a 2D array of objects, each object will contain the peice information

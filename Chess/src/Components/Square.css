@@ -1,0 +1,22 @@
+.Square
+{
+    width: 100px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    border: 1px solid black;
+}
+
+#white
+{
+    color: white;
+    background-color: white;
+}
+
+#black
+{
+    background-color: rgb(8, 88, 12);
+    color: rgb(8, 88, 12);
+}
