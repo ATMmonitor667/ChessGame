@@ -1,5 +1,6 @@
-export function moveBishop(start, end, board) {
+export function moveRook(start, end, board) {
     let moveSet = Set();
+  
     function generateRookMoves(start, moveSet, board) {
         let {row, col} = start;
         let directions  = [[1, 0], [-1, 0], [0, 1], [0, -1]];
@@ -25,6 +26,7 @@ export function moveBishop(start, end, board) {
         }
         generateRookMoves(start, moveSet, board);
         if (moveSet.has(end)) {
+      
             return true;
         }else {
             return false;

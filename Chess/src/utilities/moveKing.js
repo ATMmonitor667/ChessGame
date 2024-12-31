@@ -1,8 +1,11 @@
-export function moveBishop(start, end, board) {
+export function moveKing(start, end, board)
+{
     let moveSet = Set();
-    function generateKnightMoves(start, moveSet, board) {
+    //TODO: also implement a castling function, is castling possible? and a check function and a checkmate function
+    function generateKingMove()
+    {
         let {row, col} = start;
-        let directions = [[1, 2], [1, -2], [-1, 2], [-1, -2], [2, 1], [2, -1], [-2, 1], [-2, -1]];
+        let directions = [[1, 1], [1, -1], [-1, 1], [-1, -1], [1, 0], [-1, 0], [0, 1], [0, -1]];
         for (let [dx, dy] of directions) {
             let newRow = row + dx;
             let newCol = col + dy;
@@ -17,12 +20,12 @@ export function moveBishop(start, end, board) {
                 }
             }
         }
-
-}
-    generateKnightMoves(start, moveSet, board);
+    }
+    generateKingMove(start, moveSet, board);
     if (moveSet.has(end)) {
         return true;
-    }else {
+        }
+    else {
         return false;
     }
 }
