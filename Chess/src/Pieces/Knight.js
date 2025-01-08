@@ -1,6 +1,8 @@
 import { moveValidPiece } from '../utilities/moveValidPiece.js';
 const Knight = (color) => {
-    const imagePath = (color === 'white' ? '/Chess/public/assets/wn.png' : '/Chess/public/assets/bn.png');
+    const whitepath = "/wn.png";
+    const blackpath = "/bn.png";
+    const imagePath = (color === 'white' ? whitepath : blackpath);
     return {
         color: color,
         type: 'knight',

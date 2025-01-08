@@ -10,6 +10,10 @@
     border-radius: 5px;
     
 }
+.Square img {
+    max-width: 90%; /* Adjust the max-width as needed */
+    max-height: 90%; /* Adjust the max-height as needed */
+  }
 
 #w
 {

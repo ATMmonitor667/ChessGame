@@ -1,5 +1,6 @@
 // filepath: /C:/Users/ATM Rahat Hossain/Desktop/ChessGame/Chess/src/Components/DroppableSquare.jsx
 import React from 'react';
+import PropTypes from 'prop-types';
 import { useDrop } from 'react-dnd';
 import Square from './Square';
 
@@ -17,6 +18,12 @@ const DroppableSquare = ({ pieceType, position, color, movePiece }) => {
       <Square pieceType={pieceType} color={color} />
     </div>
   );
+};
+DroppableSquare.propTypes = {
+  pieceType: PropTypes.string.isRequired,
+  position: PropTypes.string.isRequired,
+  color: PropTypes.string.isRequired,
+  movePiece: PropTypes.func.isRequired,
 };
 
 export default DroppableSquare;

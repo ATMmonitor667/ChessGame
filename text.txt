@@ -8,3 +8,21 @@
 of the board and which will trigger a state change. Again we should use useState to manage the board changes
 the use State will take the initail board state and the new board state and update the board state
 -> The board will be a 2D array of objects, each object will contain the peice information
+
+TODO:
+-> Implemented the Peices Object
+-> implemented a moveSet function which checks the moves
+-> Implemented the board and the board state
+-> Implmented the indivual peices which is yet to be completed
+---------------------------------------------------------------
+-> will implement the drag and Drop done
+-> will implement the state change kinda 
+-> will implement the checkmate and check
+-> will implement the move history
+--------------------------------------
+There will be an array which records the drag and drop history. it turns the drag and drop into a string, which then goes into a method which 
+converts it into a start, end, and board -> this is then fed into the move function and the move function gives it an ok or no-> this boolean value is 
+then fed into a handle change function which changes the board. -> the change in the board will then trigger the state of the board to change which will
+rerender the board accordingly.
+
+-> Will implement the rest rtommarow

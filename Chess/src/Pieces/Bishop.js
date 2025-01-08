@@ -1,7 +1,9 @@
 import { moveValidPiece } from '../utilities/moveValidPiece.js';
 
 const Bishop = (color) => {
-    const imagePath = (color === 'white' ? '/Chess/public/assets/wb.png' : '/Chess/public/assets/bb.png');
+    const whitepath = "/wb.png";
+    const blackpath = "/bb.png";
+    const imagePath = (color === 'white' ? whitepath : blackpath);
     return {
         color: color,
         type: 'bishop',
@@ -11,6 +13,5 @@ const Bishop = (color) => {
         }
     };
 };
-
 
 export default Bishop;

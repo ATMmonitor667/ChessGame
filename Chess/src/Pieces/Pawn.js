@@ -1,13 +1,13 @@
 import { moveValidPiece } from '../utilities/moveValidPiece.js';
 
 const Pawn = (color) => {
-    const imagePath = (color === 'white' ? '/Chess/public/assets/wp.png' : '/Chess/public/assets/bp.png');
+    const imagePath = (color === 'white' ? '/wp.png' : '/bp.png');
     return {
         color: color,
-        type: 'rook',
+        type: 'pawn',
         image: imagePath,
         move: (start, end, board) => {
-          return moveValidPiece(start, end, board);
+            return moveValidPiece(start, end, board);
         }
     };
 };

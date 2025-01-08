@@ -1,7 +1,10 @@
 import { moveValidPiece } from '../utilities/moveValidPiece.js';
-
+import pieceImages from '../peicesimages.js';
 const Rook = (color) => {
-    const imagePath = (color === 'white' ? '/Chess/public/assets/wr.png' : '/Chess/public/assets/br.png');
+    const white = pieceImages.whiteRook;
+    const black = pieceImages.blackRook;
+
+    const imagePath = (color === 'white' ? white : black);
     return {
         color: color,
         type: 'rook',

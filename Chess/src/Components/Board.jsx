@@ -4,6 +4,9 @@ import './Board.css';
 
 const Board = (props) => {
   const [board, setBoard] = useState(createBoard());
+  const [selectedPosition, setSelectedPosition] = useState(null);
+  const [numClicks, setNumClicks] = useState(0);
+  const [moveString, setMoveString] = useState('');
 
   const movePiece = (start, end) => {
     const newBoard = [...board];
@@ -11,6 +14,36 @@ const Board = (props) => {
     newBoard[start.x][start.y] = { color: null, piece: null };
     newBoard[end.x][end.y] = piece;
     setBoard(newBoard);
+  };
+
+  const handleClick = (squareInfo) => {
+    console.log(squareInfo);
+    setNumClicks(numClicks + 1);
+
+    if (numClicks === 0) {
+      setSelectedPosition(squareInfo.position);
+      setMoveString(`${squareInfo.position.x}${squareInfo.position.y}`);
+    } else if (numClicks === 1) {
+      movePiece(selectedPosition, squareInfo.position);
+      setMoveString(`${moveString} ${squareInfo.position.x}${squareInfo.position.y}`);
+      setNumClicks(0);
+    }
+  };
+
+  const boardMap = () => {
+    return board.map((row, x) => {
+      return row.map((piece, y) => {
+        return (
+          <Square
+            key={`${x}-${y}`}
+            pieceType={piece}
+            position={{ x, y }}
+            color={colorBoard[x][y]}
+            onClick={() => handleClick({ pieceType: piece, position: { x, y }, color: colorBoard[x][y] })}
+          />
+        );
+      });
+    });
   };
 
   function createBoard() {
@@ -94,23 +127,12 @@ const Board = (props) => {
   }
 
   const colorBoard = createColorBoard();
-  console.log(board);
-  console.log(colorBoard);
+  
 
   return (
-    <div className="board">
-    {board.map((row, i) => 
-      row.map((pieceType, j) => (
-        <Square
-          key={`${i}-${j}`}
-          pieceType={pieceType}
-          position={{ x: j, y: i }} // Adjusted the mapping to align correctly
-          color={colorBoard[i][j]} // Color remains consistent
-          movePiece={movePiece}
-        />
-      ))
-    )}
-  </div>
+    <div className='board'>
+      {boardMap()}
+    </div>
   );
 };
 

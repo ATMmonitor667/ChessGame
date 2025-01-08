@@ -1,13 +1,15 @@
-import { moveKing } from '../utilities/moveKing.js';
+import { moveValidPiece } from '../utilities/moveValidPiece.js';
 
 const King = (color) => {
-    const imagePath = (color === 'white' ? '/Chess/public/assets/wk.png' : '/Chess/public/assets/bk.png');
+    const whitepath = "/wk.png";
+    const blackpath = "/bk.png";
+    const imagePath = (color === 'white' ? whitepath : blackpath);
     return {
         color: color,
         type: 'king',
         image: imagePath,
         move: (start, end, board) => {
-            return moveKing(start, end, board);
+            return moveValidPiece(start, end, board);
         }
     };
 };
