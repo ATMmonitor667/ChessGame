@@ -1,6 +1,13 @@
 import React, { useState } from 'react';
 import Square from './Square';
 import './Board.css';
+import { moveValidPiece } from '../utilities/moveValidPiece.js';
+import King from '../Pieces/King';
+import Queen from '../Pieces/Queen';
+import Rook from '../Pieces/Rook';
+import Bishop from '../Pieces/Bishop';
+import Knight from '../Pieces/Knight';
+import Pawn from '../Pieces/Pawn';
 
 const Board = (props) => {
   const [board, setBoard] = useState(createBoard());
@@ -15,20 +22,53 @@ const Board = (props) => {
     newBoard[end.x][end.y] = piece;
     setBoard(newBoard);
   };
+  const chessPostion = (x, y) => {
+    const files = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
+    const ranks = [8, 7, 6, 5, 4, 3, 2, 1];
+    const returnString = files[y] + String(ranks[x]);
+    return returnString;
+  };
 
-  const handleClick = (squareInfo) => {
-    console.log(squareInfo);
-    setNumClicks(numClicks + 1);
-
+  function handleClickLogics(squareInfo) {
     if (numClicks === 0) {
       setSelectedPosition(squareInfo.position);
+      const string = chessPostion(squareInfo.position.x, squareInfo.position.y);
+      console.log(squareInfo.position);
       setMoveString(`${squareInfo.position.x}${squareInfo.position.y}`);
     } else if (numClicks === 1) {
       movePiece(selectedPosition, squareInfo.position);
       setMoveString(`${moveString} ${squareInfo.position.x}${squareInfo.position.y}`);
       setNumClicks(0);
     }
+  }
+
+  const handleClick = (squareInfo) => {
+    const value = squareInfo
+    
+    setNumClicks(numClicks + 1);
+    handleClickLogics(squareInfo);
+
+ 
   };
+  const getPieceObject = (color, pieceType) => {
+    switch (pieceType) {
+      case 'k':
+        return King(color);
+      case 'q':
+        return Queen(color);
+      case 'r':
+        return Rook(color);
+      case 'b':
+        return Bishop(color);
+      case 'n':
+        return Knight(color);
+      case 'p':
+        return Pawn(color);
+      default:
+        return null;
+    }
+  };
+
 
   const boardMap = () => {
     return board.map((row, x) => {
