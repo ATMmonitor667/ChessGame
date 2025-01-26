@@ -2,7 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useDrop } from 'react-dnd';
-import Square from './Square';
+import Square from '../Square';
 
 const DroppableSquare = ({ pieceType, position, color, movePiece }) => {
   const [{ isOver }, drop] = useDrop(() => ({

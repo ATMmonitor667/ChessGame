@@ -1,35 +1,41 @@
 export function moveRook(start, end, board) {
-    let moveSet = Set();
-  
+    let moveSet = new Set();
+
     function generateRookMoves(start, moveSet, board) {
-        let {row, col} = start;
-        let directions  = [[1, 0], [-1, 0], [0, 1], [0, -1]];
+        let { x, y } = start; // x = row, y = column
+        let directions = [
+            [1, 0], [-1, 0], [0, 1], [0, -1] // Rook-like moves
+        ];
+
         for (let [dx, dy] of directions) {
-            let newRow = row + dx;
-            let newCol = col + dy;
-            while (newRow >= 0 && newRow < 8 && newCol >= 0 && newCol < 8) {
-                let newSquare = board[newRow][newCol];
-                if (newSquare === null) {
-                    moveSet.add(newSquare);
+            let newX = x + dx;
+            let newY = y + dy;
+            while (newX >= 0 && newX < 8 && newY >= 0 && newY < 8) {
+                let newSquare = board[newX][newY];
+                if (newSquare === null || newSquare.color !== board[x][y].color) {
+                    console.log(`Rook move to empty square: ${newX},${newY}`);
+                    moveSet.add(`${newX},${newY}`);
                 } else {
-                    if (newSquare.color !== start.color) {
-                        moveSet.add(newSquare);
-                    }
                     break;
                 }
-                newRow += dx;
-                newCol += dy;
-            } // possible mistake and thing to implement in here is that if the king is the opposite
-            // color of the bishop, then the bishop should be able to move to the king's square which is against the rule
-            // of chess
+                newX += dx;
+                newY += dy;
             }
         }
-        generateRookMoves(start, moveSet, board);
-        if (moveSet.has(end)) {
-      
-            return true;
-        }else {
-            return false;
-        }
+    }
 
+    // Generate possible rook moves
+    generateRookMoves(start, moveSet, board);
+
+    // Log moveSet for debugging
+    console.log("Generated moveSet:", moveSet);
+
+    // Check if the target square is reachable
+    if (moveSet.has(`${end.x},${end.y}`)) {
+        console.log("Rook can move to the end square:", end);
+        return true;
+    } else {
+        console.log("Rook cannot move to the end square:", end);
+        return false;
+    }
 }

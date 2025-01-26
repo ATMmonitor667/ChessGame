@@ -1,6 +1,6 @@
 export function moveKing(start, end, board)
 {
-    let moveSet = Set();
+    let moveSet = new Set();
     //TODO: also implement a castling function, is castling possible? and a check function and a checkmate function
     function generateKingMove()
     {

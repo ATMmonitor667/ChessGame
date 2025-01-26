@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Square from './Square';
 import './Board.css';
 import { moveValidPiece } from '../utilities/moveValidPiece.js';
+import { changeBoard } from '../utilities/changeboard.js';
 import King from '../Pieces/King';
 import Queen from '../Pieces/Queen';
 import Rook from '../Pieces/Rook';
@@ -12,44 +13,54 @@ import Pawn from '../Pieces/Pawn';
 const Board = (props) => {
   const [board, setBoard] = useState(createBoard());
   const [selectedPosition, setSelectedPosition] = useState(null);
+  const [selectedPiece, setSelectedPiece] = useState(null);
   const [numClicks, setNumClicks] = useState(0);
-  const [moveString, setMoveString] = useState('');
+  const [moveString, setMoveString] = useState([]);
 
-  const movePiece = (start, end) => {
-    const newBoard = [...board];
-    const piece = newBoard[start.x][start.y];
-    newBoard[start.x][start.y] = { color: null, piece: null };
-    newBoard[end.x][end.y] = piece;
-    setBoard(newBoard);
+  const movePiece = (start, end, Piece) => {
+    console.log("These are what we have to work with", Piece, start, end);
+    const newBoard = Piece.move(start, end, board);
+    
+    if (newBoard) {
+      setBoard(newBoard);
+    }
+    else{
+      console.log("Invalid move");
+    }
+    //console.log("This is a valid ",  isValidMove);
+    //return isValidMove;
+    
   };
-  const chessPostion = (x, y) => {
+
+  const convertToChessNotation = (x, y) => {
     const files = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
     const ranks = [8, 7, 6, 5, 4, 3, 2, 1];
-    const returnString = files[y] + String(ranks[x]);
-    return returnString;
+    return `${files[y]}${ranks[x]}`;
   };
 
   function handleClickLogics(squareInfo) {
     if (numClicks === 0) {
       setSelectedPosition(squareInfo.position);
-      const string = chessPostion(squareInfo.position.x, squareInfo.position.y);
-      console.log(squareInfo.position);
-      setMoveString(`${squareInfo.position.x}${squareInfo.position.y}`);
+      const Piece = getPieceObject(squareInfo.color, squareInfo.pieceType.piece);
+      setSelectedPiece(Piece);
+      console.log('Piece Selected:', Piece);
+      const chessNotation = convertToChessNotation(squareInfo.position.x, squareInfo.position.y);
+      setMoveString([chessNotation]);
     } else if (numClicks === 1) {
-      movePiece(selectedPosition, squareInfo.position);
-      setMoveString(`${moveString} ${squareInfo.position.x}${squareInfo.position.y}`);
+      const chessNotation = convertToChessNotation(squareInfo.position.x, squareInfo.position.y);
+      setMoveString([...moveString, chessNotation]);
+
+      movePiece(selectedPosition, squareInfo.position, selectedPiece);
+
       setNumClicks(0);
     }
   }
 
   const handleClick = (squareInfo) => {
-    const value = squareInfo
-    
     setNumClicks(numClicks + 1);
     handleClickLogics(squareInfo);
-
- 
   };
+
   const getPieceObject = (color, pieceType) => {
     switch (pieceType) {
       case 'k':
@@ -68,7 +79,6 @@ const Board = (props) => {
         return null;
     }
   };
-
 
   const boardMap = () => {
     return board.map((row, x) => {
@@ -167,11 +177,13 @@ const Board = (props) => {
   }
 
   const colorBoard = createColorBoard();
-  
+  //console.log(board);
+  //console.log(colorBoard);
 
   return (
     <div className='board'>
       {boardMap()}
+      <div>Move String: {moveString.join(' ')}</div>
     </div>
   );
 };

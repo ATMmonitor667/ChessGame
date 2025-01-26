@@ -1,28 +1,41 @@
 export function moveKnight(start, end, board) {
-    let moveSet = Set();
+    let moveSet = new Set();
+    console.log("End square:", end);
     function generateKnightMoves(start, moveSet, board) {
-        let {row, col} = start;
-        let directions = [[1, 2], [1, -2], [-1, 2], [-1, -2], [2, 1], [2, -1], [-2, 1], [-2, -1]];
+        let { x, y } = start; // start should have {x, y} format
+        let directions = [
+            [1, 2], [1, -2], [-1, 2], [-1, -2],
+            [2, 1], [2, -1], [-2, 1], [-2, -1]
+        ];
+
         for (let [dx, dy] of directions) {
-            let newRow = row + dx;
-            let newCol = col + dy;
-            if (newRow >= 0 && newRow < 8 && newCol >= 0 && newCol < 8) {
-                let newSquare = board[newRow][newCol];
-                if (newSquare === null) {
-                    moveSet.add(newSquare);
-                } else {
-                    if (newSquare.color !== start.color) {
-                        moveSet.add(newSquare);
-                    }
+            let newX = x + dx;
+            let newY = y + dy;
+
+            // Ensure move is within bounds of the board
+            if (newX >= 0 && newX < 8 && newY >= 0 && newY < 8) {
+                let newSquare = board[newX][newY];
+
+                // Check if the square is empty or has an opponent's piece
+                if (newSquare === null || newSquare.color !== board[x][y].color) {
+                    moveSet.add(`${newX},${newY}`); // Use string representation for the move
                 }
             }
         }
+    }
 
-}
+    // Generate possible knight moves
     generateKnightMoves(start, moveSet, board);
-    if (moveSet.has(end)) {
+
+    // Log moveSet for debugging
+    console.log("Generated moveSet:", moveSet);
+
+    // Check if the target square is reachable
+    if (moveSet.has(`${end.x},${end.y}`)) {
+        console.log("Knight can move to the end square:", end);
         return true;
-    }else {
+    } else {
+        console.log("Knight cannot move to the end square:", end);
         return false;
     }
 }

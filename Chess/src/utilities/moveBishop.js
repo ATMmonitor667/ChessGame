@@ -1,33 +1,41 @@
 export function moveBishop(start, end, board) {
-    let moveSet = Set();
+    let moveSet = new Set();
+
     function generateBishopMoves(start, moveSet, board) {
-        let {row, col} = start;
+        let { x, y } = start; // x = row, y = column
+        console.log("Start square:", x, y);
         let directions = [[1, 1], [1, -1], [-1, 1], [-1, -1]];
+
         for (let [dx, dy] of directions) {
-            let newRow = row + dx;
-            let newCol = col + dy;
-            while (newRow >= 0 && newRow < 8 && newCol >= 0 && newCol < 8) {
-                let newSquare = board[newRow][newCol];
-                if (newSquare === null) {
-                    moveSet.add(newSquare);
-                } else {
-                    if (newSquare.color !== start.color) {
-                        moveSet.add(newSquare);
-                    }
-                    break;
-                }
-                newRow += dx;
-                newCol += dy;
-            } // possible mistake and thing to implement in here is that if the king is the opposite
-            // color of the bishop, then the bishop should be able to move to the king's square which is against the rule
-            // of chess
+            let newX = x + dx;
+            let newY = y + dy;
+            //console.log("newX:", newX, "newY:", newY);
+            while (newX >= 0 && newX < 8 && newY >= 0 && newY < 8) {
+                let newSquare = board[newX][newY];
+                if (newSquare === null || newSquare.color !== board[x][y].color) {
+                    console.log(`Bishop move to empty square: ${newX},${newY}`);
+
+                    moveSet.add(`${newX},${newY}`);
+                } 
+                newX += dx;
+                newY += dy;
+                console.log("newX:", newX, "newY:", newY);
             }
         }
-        generateBishopMoves(start, moveSet, board);
-        if (moveSet.has(end)) {
-            return true;
-        }else {
-            return false;
-        }
+    }
 
+    // Generate possible bishop moves
+    generateBishopMoves(start, moveSet, board);
+
+    // Log moveSet for debugging
+    console.log("Generated moveSet:", moveSet);
+
+    // Check if the target square is reachable
+    if (moveSet.has(`${end.x},${end.y}`)) {
+        console.log("Bishop can move to the end square:", end);
+        return true;
+    } else {
+        console.log("Bishop cannot move to the end square:", end);
+        return false;
+    }
 }
