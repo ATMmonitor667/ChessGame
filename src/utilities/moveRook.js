@@ -26,7 +26,6 @@ export function moveRook(start, end, board) {
         }
         generateRookMoves(start, moveSet, board);
         if (moveSet.has(end)) {
-      
             return true;
         }else {
             return false;
