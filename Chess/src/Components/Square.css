@@ -1,0 +1,28 @@
+.Square
+{
+    width: 100px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    border: 1px solid black;
+    border-radius: 5px;
+    
+}
+.Square img {
+    max-width: 90%; /* Adjust the max-width as needed */
+    max-height: 90%; /* Adjust the max-height as needed */
+  }
+
+#w
+{
+    color: white;
+    background-color: white;
+}
+
+#b
+{
+    background-color: #69923e;
+    color:#69923e;
+}

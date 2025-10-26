@@ -1,0 +1,5 @@
+TODO
+-> Althought I have just completed the function for checking the movesets of each of the peices
+-> way to improve this is by returning the function generatemvoeset and for each of the cases, king queen etc
+the function will change into a function that will return the moveset of the peice, This will make the code 
+more modeular and resuable, but i will make this change later
