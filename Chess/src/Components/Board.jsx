@@ -14,22 +14,23 @@ const Board = (props) => {
   const [board, setBoard] = useState(createBoard());
   const [selectedPosition, setSelectedPosition] = useState(null);
   const [selectedPiece, setSelectedPiece] = useState(null);
-  const [numClicks, setNumClicks] = useState(0);
-  const [moveString, setMoveString] = useState([]);
+  const [currentPlayer, setCurrentPlayer] = useState('w');
+  const [moveHistory, setMoveHistory] = useState([]);
+  const [validMoves, setValidMoves] = useState(new Set());
+  const [gameStatus, setGameStatus] = useState('playing');
 
   const movePiece = (start, end, Piece) => {
-    console.log("These are what we have to work with", Piece, start, end);
     const newBoard = Piece.move(start, end, board);
     
     if (newBoard) {
       setBoard(newBoard);
+      const notation = convertToChessNotation(start.x, start.y) + '-' + convertToChessNotation(end.x, end.y);
+      setMoveHistory([...moveHistory, notation]);
+      setCurrentPlayer(currentPlayer === 'w' ? 'b' : 'w');
+      setSelectedPosition(null);
+      setSelectedPiece(null);
+      setValidMoves(new Set());
     }
-    else{
-      console.log("Invalid move");
-    }
-    //console.log("This is a valid ",  isValidMove);
-    //return isValidMove;
-    
   };
 
   const convertToChessNotation = (x, y) => {

@@ -1,30 +1,31 @@
 export function moveKing(start, end, board)
 {
     let moveSet = new Set();
-    //TODO: also implement a castling function, is castling possible? and a check function and a checkmate function
-    function generateKingMove()
+
+    function generateKingMove(start, moveSet, board)
     {
-        let {row, col} = start;
+        let {x, y} = start;
+        let piece = board[x][y];
         let directions = [[1, 1], [1, -1], [-1, 1], [-1, -1], [1, 0], [-1, 0], [0, 1], [0, -1]];
         for (let [dx, dy] of directions) {
-            let newRow = row + dx;
-            let newCol = col + dy;
-            if (newRow >= 0 && newRow < 8 && newCol >= 0 && newCol < 8) {
-                let newSquare = board[newRow][newCol];
-                if (newSquare === null) {
-                    moveSet.add(newSquare);
+            let newX = x + dx;
+            let newY = y + dy;
+            if (newX >= 0 && newX < 8 && newY >= 0 && newY < 8) {
+                let newSquare = board[newX][newY];
+                if (newSquare === null || (newSquare.color === null && newSquare.piece === null)) {
+                    moveSet.add(`${newX},${newY}`);
                 } else {
-                    if (newSquare.color !== start.color) {
-                        moveSet.add(newSquare);
+                    if (newSquare.color !== piece.color) {
+                        moveSet.add(`${newX},${newY}`);
                     }
                 }
             }
         }
     }
     generateKingMove(start, moveSet, board);
-    if (moveSet.has(end)) {
+    if (moveSet.has(`${end.x},${end.y}`)) {
         return true;
-        }
+    }
     else {
         return false;
     }

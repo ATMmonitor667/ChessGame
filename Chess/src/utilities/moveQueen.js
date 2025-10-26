@@ -2,10 +2,11 @@ export function moveQueen(start, end, board) {
     let moveSet = new Set();
 
     function generateQueenMoves(start, moveSet, board) {
-        let { x, y } = start; // x = row, y = column
+        let { x, y } = start;
+        let piece = board[x][y];
         let directions = [
-            [1, 0], [-1, 0], [0, 1], [0, -1], // Rook-like moves
-            [1, 1], [1, -1], [-1, 1], [-1, -1] // Bishop-like moves
+            [1, 0], [-1, 0], [0, 1], [0, -1],
+            [1, 1], [1, -1], [-1, 1], [-1, -1]
         ];
 
         for (let [dx, dy] of directions) {
@@ -13,9 +14,11 @@ export function moveQueen(start, end, board) {
             let newY = y + dy;
             while (newX >= 0 && newX < 8 && newY >= 0 && newY < 8) {
                 let newSquare = board[newX][newY];
-                if (newSquare === null || newSquare.color !== board[x][y].color) {
-                    console.log(`Queen move to empty square: ${newX},${newY}`);
+                if (newSquare === null || (newSquare.color === null && newSquare.piece === null)) {
                     moveSet.add(`${newX},${newY}`);
+                } else if (newSquare.color !== piece.color) {
+                    moveSet.add(`${newX},${newY}`);
+                    break;
                 } else {
                     break;
                 }
@@ -25,18 +28,11 @@ export function moveQueen(start, end, board) {
         }
     }
 
-    // Generate possible queen moves
     generateQueenMoves(start, moveSet, board);
 
-    // Log moveSet for debugging
-    console.log("Generated moveSet:", moveSet);
-
-    // Check if the target square is reachable
     if (moveSet.has(`${end.x},${end.y}`)) {
-        console.log("Queen can move to the end square:", end);
         return true;
     } else {
-        console.log("Queen cannot move to the end square:", end);
         return false;
     }
 }

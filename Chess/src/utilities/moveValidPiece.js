@@ -20,7 +20,6 @@ export function moveValidPiece(start, end, board) {
   switch (pieceName) {
     case 'p':
       if (movePawn(start, end, board)) {
-        console.log("hello this is where the pawn moves")
         return changeBoard();
       }
       break;
@@ -31,7 +30,6 @@ export function moveValidPiece(start, end, board) {
       break;
     case 'n':
       if (moveKnight(start, end, board)) {
-        console.log("this is in the moveValidPiece.js");
         return changeBoard();
       }
       break;
@@ -53,6 +51,5 @@ export function moveValidPiece(start, end, board) {
     default:
       return false;
   }
-  console.log("Invalid move");
   return false;
 }
